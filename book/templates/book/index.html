@@ -14,13 +14,26 @@
                 <span class="fs-4">The notebook</span>
             </a>
         </header>
-        <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="p-5 mb-1 bg-light rounded-3">
             <div class="container-fluid py-5">
               <h1 class="display-5 fw-bold">Customize your notes</h1>
-              <p class="col-md-8 fs-4">Using a series of utilities, you can create your own notes, reviews and references just like using handpads and pen. Check out the button to begin styling and arranging your notes.</p>
+              <p class="col-md-8 fs-4">You can create your own notes, reviews and references . Check out the button to begin styling.</p>
               <button class="btn btn-dark btn-lg" type="button"><a href="{% url 'add'%}">Enter notes</a></button>
             </div>
         </div>
+        {% for entry in entries %}
+        <hr>
+        <div class="card">
+            <div class="card-header">
+              {{entry.date_posted}}
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>{{entry.text}}</p>
+              </blockquote>
+            </div>
+        </div>
+        {% endfor %}
 
         <footer class="pt-3 mt-4 text-muted border-top">
             © 2021 , made by klaus

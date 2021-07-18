@@ -1,7 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Entry
+from .forms import EntryForm
 
 def index(request):
-    return render(request, 'book/index.html')
+    entries = Entry.objects.order_by('-date_posted')
+    context = {'entries' : entries}
+    return render(request, 'book/index.html', context)
 
 def add(request):
-    return render(request, 'book/add.html')
+    if request.method == 'POST':
+        form = EntryForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = EntryForm()
+
+    context = {'form' : form}
+    return render(request, 'book/add.html', context)
